@@ -25,3 +25,8 @@
 <link href="{{ asset('admin/assets/css/themes/layout/aside/dark.css') }}" rel="stylesheet" type="text/css" />
 <link rel="shortcut icon" href="{{ asset('admin/assets/media/logos/favicon.ico') }}" />
 @stack('css')
+<style>
+    .swal2-icon{
+        margin-left: 40%!important;
+    }
+</style>

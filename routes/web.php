@@ -25,4 +25,6 @@ Auth::routes([
 
 Route::group(['namespace' => 'App\Http\Controllers\Admin', 'prefix'=>'dashboard', 'middleware'=>'auth', 'as'=>'dashboard.'], function (){
     Route::get('/', 'HomeController@index')->name('home');
+    Route::resource('roles', 'RoleController');
+    Route::get('get-roles', 'RoleController@getRoles');
 });

@@ -16,6 +16,13 @@ return [
     'timeTable' => 'Time Table',
     'logout' => 'Sign Out',
     'dashboard' => 'Dashboard',
+    'roles' => 'Roles',
+    'role' => 'Role',
+    'name' => 'Name',
+    'actions' => 'Actions',
+    'created_at' => 'Created.At',
+    'new-role' => 'New Role',
+    'id' => 'ID',
 
 
 ];

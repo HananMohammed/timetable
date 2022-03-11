@@ -83,7 +83,6 @@
     </span>
 </div>
 @include('admin.layouts.includes.scripts')
-
 </body>
 <!--end::Body-->
 </html>
