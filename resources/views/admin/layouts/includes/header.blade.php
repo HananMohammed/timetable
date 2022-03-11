@@ -25,34 +25,6 @@
                     </div>
                 </div>
                 <!--end::Toggle-->
-                <!--begin::Dropdown-->
-            {{--                            <div class="dropdown-menu p-0 m-0 dropdown-menu-anim-up dropdown-menu-sm dropdown-menu-right">--}}
-            {{--                                <!--begin::Nav-->--}}
-            {{--                                <ul class="navi navi-hover py-4">--}}
-            {{--                                    <!--begin::Item-->--}}
-            {{--                                    <li class="navi-item">--}}
-            {{--                                        <a href="{{LaravelLocalization::getLocalizedURL('en', null, [], true)}}" class="navi-link">--}}
-            {{--													<span class="symbol symbol-20 mr-3">--}}
-            {{--														<img src="{{ asset('admin/assets/media/svg/flags/226-united-states.svg') }}" alt="" />--}}
-            {{--													</span>--}}
-            {{--                                            <span class="navi-text">English</span>--}}
-            {{--                                        </a>--}}
-            {{--                                    </li>--}}
-            {{--                                    <!--end::Item-->--}}
-            {{--                                    <!--begin::Item-->--}}
-            {{--                                    <li class="navi-item active">--}}
-            {{--                                        <a href="{{LaravelLocalization::getLocalizedURL('ar', null, [], true)}}" class="navi-link">--}}
-            {{--													<span class="symbol symbol-20 mr-3">--}}
-            {{--														<img src="{{ asset('admin/assets/media/svg/flags/egypt.svg') }}" alt="" />--}}
-            {{--													</span>--}}
-            {{--                                            <span class="navi-text">Arabic</span>--}}
-            {{--                                        </a>--}}
-            {{--                                    </li>--}}
-            {{--                                    <!--end::Item-->--}}
-            {{--                                </ul>--}}
-            {{--                                <!--end::Nav-->--}}
-            {{--                            </div>--}}
-            <!--end::Dropdown-->
             </div>
             <!--end::Languages-->
             <!--begin::User-->
