@@ -16,3 +16,13 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Auth::routes([
+    'register' => false, // Registration Routes...
+    'reset' => false, // Password Reset Routes...
+    'verify' => false, // Email Verification Routes...
+]);
+
+Route::group(['namespace' => 'App\Http\Controllers\Admin', 'prefix'=>'dashboard', 'middleware'=>'auth', 'as'=>'dashboard.'], function (){
+    Route::get('/', 'HomeController@index')->name('home');
+});
