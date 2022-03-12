@@ -32,7 +32,7 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin', 'prefix'=>'dashboard'
     Route::resource('users', 'UserController');
     Route::get('get-users', 'UserController@getUsers');
     Route::resource('pharmacies', 'PharmacyController');
-    Route::get('get-pharmacies', 'PharmacyController@Pharmacies');
+    Route::get('get-pharmacies', 'PharmacyController@getPharmacies');
     Route::resource('time-table', 'TimeTableController');
     Route::get('get-timeTable', 'TimeTableController@TimeTables');
 });

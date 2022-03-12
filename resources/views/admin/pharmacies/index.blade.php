@@ -1,6 +1,6 @@
 @extends('admin.layouts.app')
 
-@section('title', 'Users')
+@section('title', 'Pharmacies')
 
 @section('content')
     <!--begin::Subheader-->
@@ -11,7 +11,7 @@
                 <!--begin::Page Heading-->
                 <div class="d-flex align-items-baseline flex-wrap mr-5">
                     <!--begin::Page Title-->
-                    <h5 class="text-dark font-weight-bold my-1 mr-5">@lang('admin.users')</h5>
+                    <h5 class="text-dark font-weight-bold my-1 mr-5">@lang('admin.pharmacies')</h5>
                     <!--end::Page Title-->
                     <!--begin::Breadcrumb-->
                     <ul class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 font-size-sm">
@@ -19,7 +19,7 @@
                             <a href="{{route('dashboard.home')}}" class="text-muted">@lang('admin.dashboard')</a>
                         </li>
                         <li class="breadcrumb-item">
-                            <a href="{{route('dashboard.admins.index')}}" class="text-muted">@lang('admin.users')</a>
+                            <a href="{{route('dashboard.pharmacies.index')}}" class="text-muted">@lang('admin.pharmacies')</a>
                         </li>
                     </ul>
                     <!--end::Breadcrumb-->
@@ -38,11 +38,11 @@
             <div class="card card-custom gutter-b" style="width: 100%;">
                 <div class="card-header flex-wrap py-3">
                     <div class="card-title">
-                        <h3 class="card-label">@lang('admin.users')</h3>
+                        <h3 class="card-label">@lang('admin.pharmacies')</h3>
                     </div>
                     <div class="card-toolbar">
                         <!--begin::Button-->
-                        <a href="javascript:void(0)" class="btn btn-primary font-weight-bolder d-flex " id="add_user"  data-toggle="modal" data-target="#userModal" >
+                        <a href="javascript:void(0)" class="btn btn-primary font-weight-bolder d-flex " id="add_pharmacy"  data-toggle="modal" data-target="#pharmacyModal" >
                     <span class="svg-icon svg-icon-md">
                         <!--begin::Svg Icon | path:assets/media/svg/icons/Design/Flatten.svg-->
                         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
@@ -53,22 +53,24 @@
                             </g>
                         </svg>
                         <!--end::Svg Icon-->
-                    </span>@lang('admin.new-user')</a>
+                    </span>@lang('admin.new-pharmacy')</a>
                         <!--end::Button-->
                     </div>
                 </div>
                 <div class="card-body">
-                @include('admin.users.create_edit_form')
+                @include('admin.pharmacies.create_edit_form')
                 <!--begin: Datatable-->
                     <div id="kt_datatable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
                         <div class="row">
                             <div class="col-sm-12">
-                                <table class="table table-bordered table-checkable " id="users_datatable">
+                                <table class="table table-bordered table-checkable " id="pharmacy_datatable">
                                     <thead>
                                     <tr role="row">
                                         <th>@lang('admin.id')</th>
-                                        <th>@lang('admin.name')</th>
+                                        <th>@lang('admin.pharmacy')</th>
+                                        <th>@lang('admin.phone')</th>
                                         <th>@lang('admin.status')</th>
+                                        <th>@lang('admin.website')</th>
                                         <th>@lang('admin.created_at')</th>
                                         <th>@lang('admin.actions')</th>
                                     </tr>
@@ -93,10 +95,9 @@
     <script src="{{ asset('admin/assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>
     <script type="text/javascript">
         $( document ).ready(function() {
-            var table =  $('#users_datatable')
+            var table =  $('#pharmacy_datatable')
 
-            let usersTable =  table.DataTable({
-
+            let pharmacyTable =  table.DataTable({
                 lengthChange: true,
                 processing: true,
                 serverSide: true,
@@ -107,14 +108,13 @@
                 ],
                 paging: true,
                 ajax: {
-                    url :'/dashboard/get-users',
+                    url :'/dashboard/get-pharmacies',
                     headers:{'auth-id': $('meta[name="auth-id"]').attr('content')},
                     data: function (d) {}
                 },
                 columns: [
                     {
                         "data": "id",
-                        width: '50px',
                         render: function(data, type, full, meta) {
                             return `
                                       <label class="checkbox checkbox-single">
@@ -124,12 +124,19 @@
                         },
                     },
                     {data: 'name'},
+                    {data: 'phone'},
                     {
                         data: 'status',
                         render: function (data) {
                             return (data == 1) ? `<span class="badge badge-success">Active</span>` : `<span class="badge badge-danger">InActive</span>`;
                         }
 
+                    },
+                    {
+                        data: 'website',
+                        render: function (data) {
+                            return `<a href="${data}" target="_blank" class="btn btn-success"><i class="fas fa-link"></i>Link</a>`;
+                        }
                     },
                     {data: 'created_at'},
                     {
@@ -175,9 +182,9 @@
             //Create
             $("#save").on('click', function (event) {
                 event.preventDefault()
-                let url = ($("#userId").val()) ? `/dashboard/users/${$("#userId").val()}`: currentLocation;
-                let method = ($("#userId").val()) ? 'PUT' : 'POST'
-                $("#userForm input, #userForm select").map((index, value)=>{
+                let url = ($("#pharmacyId").val()) ? `/dashboard/pharmacies/${$("#pharmacyId").val()}`: currentLocation;
+                let method = ($("#pharmacyId").val()) ? 'PUT' : 'POST'
+                $("#pharmacyForm input, #pharmacyForm select").map((index, value)=>{
                     $(value).removeClass('is-invalid')
                 })
                 axios({
@@ -185,11 +192,11 @@
                     url: url,
                     data: {
                         name: $("input[name='name']").val(),
-                        email: $("input[name='email']").val(),
+                        phone: $("input[name='phone']").val(),
+                        address: $("input[name='address']").val(),
+                        website: $("input[name='website']").val(),
                         status: $("select[name='status']").val(),
-                        password: $("input[name='password']").val(),
-                        password_confirmation: $("input[name='password_confirmation']").val(),
-                        id:$("#userId").val()
+                        id:$("#pharmacyId").val()
                     }
                 }).then((response) => {
                     if(response.status){
@@ -198,8 +205,8 @@
                             response.data.message,
                             'success'
                         )
-                        $('#userModal').modal('hide');
-                        usersTable.ajax.reload();
+                        $('#pharmacyModal').modal('hide');
+                        pharmacyTable.ajax.reload();
                     }
                 }, (error) => {
                     let errors = error.response.data.errors
@@ -214,8 +221,8 @@
             })
             //Delete
             $(document).on('click','.delRow',function (){
-                let url = '/dashboard/users/'+$(this).data('id')
-                swalDel(url, usersTable);
+                let url = '/dashboard/pharmacies/'+$(this).data('id')
+                swalDel(url, pharmacyTable);
             });
         });
     </script>

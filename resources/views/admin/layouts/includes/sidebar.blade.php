@@ -29,7 +29,7 @@
         <div id="kt_aside_menu" class="aside-menu my-4" data-menu-vertical="1" data-menu-scroll="1" data-menu-dropdown-timeout="500">
             <!--begin::Menu Nav-->
             <ul class="menu-nav">
-                <li class="menu-item" aria-haspopup="true">
+                <li class="menu-item @if(Route::currentRouteName() == "dashboard.home") menu-item-active @endif" aria-haspopup="true">
                     <a href="{{route('dashboard.home')}}" class="menu-link">
                         <span class="svg-icon menu-icon">
                             <!--begin::Svg Icon | path:assets/media/svg/icons/Design/Layers.svg-->
@@ -46,7 +46,7 @@
                     </a>
                 </li>
                 @can('read roles')
-                <li class="menu-item menu-item-active" aria-haspopup="true">
+                <li class="menu-item @if(Route::currentRouteName() == "dashboard.roles.index") menu-item-active @endif" aria-haspopup="true">
                     <a href="{{route('dashboard.roles.index')}}" class="menu-link">
                         <span class="svg-icon menu-icon">
                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
@@ -62,7 +62,7 @@
                 </li>
                 @endcan
                 @can('read admins')
-                    <li class="menu-item menu-item-active" aria-haspopup="true">
+                    <li class="menu-item @if(Route::currentRouteName() == "dashboard.admins.index") menu-item-active @endif" aria-haspopup="true">
                         <a href="{{route('dashboard.admins.index')}}" class="menu-link">
                         <span class="svg-icon menu-icon">
                             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
@@ -78,7 +78,7 @@
                     </li>
                 @endcan
                 @can('read users')
-                    <li class="menu-item menu-item-active" aria-haspopup="true">
+                    <li class="menu-item @if(Route::currentRouteName() == "dashboard.users.index") menu-item-active @endif" aria-haspopup="true">
                         <a href="{{route('dashboard.users.index')}}" class="menu-link">
                         <span class="svg-icon menu-icon">
                             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">

@@ -3,83 +3,89 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\PharmacyRequest;
+use App\Http\Resources\Admin\PharmacyResource;
+use App\Models\Pharmacy;
 use Illuminate\Http\Request;
 
 class PharmacyController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    function __construct()
     {
-        //
+        $this->middleware('permission:read pharmacies|create pharmacies|update pharmacies|delete pharmacies', ['only' => ['index','show', 'getPharmacies']]);
+        $this->middleware('permission:create pharmacies', ['only' => ['store']]);
+        $this->middleware('permission:update pharmacies', ['only' => ['edit','update']]);
+        $this->middleware('permission:delete pharmacies', ['only' => ['destroy']]);
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
-    public function create()
+    public function index()
     {
-        //
+        return view('admin.pharmacies.index');
+    }
+
+
+    /**getPharmacies
+     * @return mixed
+     * @throws \Exception
+     */
+    public function getPharmacies()
+    {
+        $users = PharmacyResource::collection(Pharmacy::all());
+        return datatables($users)->make(true);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param  PharmacyRequest  $request
+     * @return Response
      */
-    public function store(Request $request)
+    public function store(PharmacyRequest $request)
     {
-        //
+        Pharmacy::create($request->all());
+        return response()->json(['status'=> true, 'message'=> 'Pharmacy Stored Successfully']);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  Pharmacy $pharmacy
+     * @return Response
      */
-    public function edit($id)
+    public function edit(Pharmacy $pharmacy)
     {
-        //
+        return response()->json(['status'=> true, 'message'=> 'Pharmacy returned Successfully', 'data'=>$pharmacy]);
+
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  Pharmacy $pharmacy
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
-    public function update(Request $request, $id)
+    public function update(PharmacyRequest $request, Pharmacy $pharmacy)
     {
-        //
+        $pharmacy->update($request->all());
+        return response()->json(['status'=> true, 'message'=> 'Pharmacy Updated Successfully']);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  Pharmacy $pharmacy
+     * @return Response
      */
-    public function destroy($id)
+    public function destroy(Pharmacy $pharmacy)
     {
-        //
+        $pharmacy->delete();
+        return response()->json(['status'=>true,'message'=>__('Pharmacy deleted successfully')],200);
     }
 }

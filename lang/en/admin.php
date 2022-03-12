@@ -29,7 +29,11 @@ return [
     'status' => 'Status',
     'user' => 'User',
     'users' => 'Users',
-
+    'pharmacies' => 'Pharmacies',
+    'pharmacy' => 'Pharmacy',
+    'new-pharmacy' => 'New Pharmacy',
+    'website' => 'website',
+    'phone' => 'phone'
 
 
 
