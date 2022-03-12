@@ -1,6 +1,6 @@
 @extends('admin.layouts.app')
 
-@section('title', 'Roles')
+@section('title', 'Admins')
 
 @section('content')
     <!--begin::Subheader-->
@@ -11,7 +11,7 @@
                 <!--begin::Page Heading-->
                 <div class="d-flex align-items-baseline flex-wrap mr-5">
                     <!--begin::Page Title-->
-                    <h5 class="text-dark font-weight-bold my-1 mr-5">@lang('admin.roles')</h5>
+                    <h5 class="text-dark font-weight-bold my-1 mr-5">@lang('admin.admins')</h5>
                     <!--end::Page Title-->
                     <!--begin::Breadcrumb-->
                     <ul class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 font-size-sm">
@@ -19,7 +19,7 @@
                             <a href="{{route('dashboard.home')}}" class="text-muted">@lang('admin.dashboard')</a>
                         </li>
                         <li class="breadcrumb-item">
-                            <a href="{{route('dashboard.roles.index')}}" class="text-muted">@lang('admin.roles')</a>
+                            <a href="{{route('dashboard.admins.index')}}" class="text-muted">@lang('admin.admins')</a>
                         </li>
                     </ul>
                     <!--end::Breadcrumb-->
@@ -38,11 +38,11 @@
             <div class="card card-custom gutter-b" style="width: 100%;">
                 <div class="card-header flex-wrap py-3">
                     <div class="card-title">
-                        <h3 class="card-label">@lang('admin.roles')</h3>
+                        <h3 class="card-label">@lang('admin.admins')</h3>
                     </div>
                     <div class="card-toolbar">
                         <!--begin::Button-->
-                        <a href="javascript:void(0)" class="btn btn-primary font-weight-bolder d-flex " id="add_role"  data-toggle="modal" data-target="#roleModal" >
+                        <a href="javascript:void(0)" class="btn btn-primary font-weight-bolder d-flex " id="add_admin"  data-toggle="modal" data-target="#adminModal" >
                     <span class="svg-icon svg-icon-md">
                         <!--begin::Svg Icon | path:assets/media/svg/icons/Design/Flatten.svg-->
                         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
@@ -53,27 +53,29 @@
                             </g>
                         </svg>
                         <!--end::Svg Icon-->
-                    </span>@lang('admin.new-role')</a>
+                    </span>@lang('admin.new-admin')</a>
                         <!--end::Button-->
                     </div>
                 </div>
                 <div class="card-body">
-                    @include('admin.roles.create_edit_form')
+                    @include('admin.admins.create_edit_form')
                     <!--begin: Datatable-->
                     <div id="kt_datatable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
                         <div class="row">
                             <div class="col-sm-12">
-                                <table class="table table-bordered table-checkable " id="kt_datatable">
+                                <table class="table table-bordered table-checkable " id="admin_datatable">
                                     <thead>
-                                    <tr role="row">
-                                        <th>@lang('admin.id')</th>
-                                        <th>@lang('admin.role')</th>
-                                        <th>@lang('admin.created_at')</th>
-                                        <th>@lang('admin.actions')</th>
-                                    </tr>
+                                        <tr role="row">
+                                            <th>@lang('admin.id')</th>
+                                            <th>@lang('admin.name')</th>
+                                            <th>@lang('admin.role')</th>
+                                            <th>@lang('admin.status')</th>
+                                            <th>@lang('admin.created_at')</th>
+                                            <th>@lang('admin.actions')</th>
+                                        </tr>
                                     </thead>
-                                        <tbody>
-                                        </tbody>
+                                    <tbody>
+                                    </tbody>
                                 </table>
                             </div>
                         </div>
@@ -91,8 +93,8 @@
     <script src="{{ asset('admin/assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>
     <script type="text/javascript">
         $( document ).ready(function() {
-          var table =  $('#kt_datatable')
-          let rolesTable =  table.DataTable({
+          var table =  $('#admin_datatable')
+          let adminTable =  table.DataTable({
 
                 lengthChange: true,
                 processing: true,
@@ -104,7 +106,7 @@
                 ],
                 paging: true,
                 ajax: {
-                    url :'/dashboard/get-roles',
+                    url :'/dashboard/get-admins',
                     headers:{'auth-id': $('meta[name="auth-id"]').attr('content')},
                     data: function (d) {
                         // d.status_val = $('#status_id_search').val();
@@ -119,21 +121,29 @@
                         render: function(data, type, full, meta) {
                             return `
                                       <label class="checkbox checkbox-single">
-                                          <input type="checkbox" value="" class="checkable"/>
+                                          <input type="checkbox" value="${data.id}" class="checkable"/>
                                           <span></span>
                                       </label>`;
                         },
                     },
                     {data: 'name'},
+                    {data: 'role'},
+                    {
+                        data: 'status',
+                        render: function (data) {
+                           return (data == 1) ? `<span class="badge badge-success">Active</span>` : `<span class="badge badge-danger">InActive</span>`;
+                        }
+
+                    },
                     {data: 'created_at'},
                     {
                         data:'id',
                         orderable: false,
                         width: '125px',
                         render: function(data) {
-                            if(data !== 1){
+                            if(!data.role.includes('superAdmin')){
                                 return `
-                                          <a href= "javascript:void(0)" data-id="${data}" class="btn btn-sm btn-clean btn-icon mr-2 editRow" title="Edit details" >
+                                          <a href= "javascript:void(0)" data-id="${data.id}" class="btn btn-sm btn-clean btn-icon mr-2 editRow" title="Edit details" >
                                           <span class="svg-icon svg-icon-md">
                                           <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                                               <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -145,7 +155,7 @@
                                       </span>
                                   </a>
 
-                                   <a href="javascript:void(0)" class="btn btn-sm btn-clean btn-icon delRow"  data-id="${data}"  title="Delete">
+                                   <a href="javascript:void(0)" class="btn btn-sm btn-clean btn-icon delRow"  data-id="${data.id}"  title="Delete">
                                       <span class="svg-icon svg-icon-md">
                                           <svg class="delete" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                                               <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -174,14 +184,22 @@
             //Create
             $("#save").on('click', function (event) {
                 event.preventDefault()
-                let url = ($("#roleId").val()) ? `/dashboard/roles/${$("#roleId").val()}`: currentLocation;
-                let method = ($("#roleId").val()) ? 'PUT' : 'POST'
+                let url = ($("#adminId").val()) ? `/dashboard/admins/${$("#adminId").val()}`: currentLocation;
+                let method = ($("#adminId").val()) ? 'PUT' : 'POST'
+                $("#adminForm input, #adminForm select").map((index, value)=>{
+                    $(value).removeClass('is-invalid')
+                })
                 axios({
                     method: method,
                     url: url,
                     data: {
                         name: $("input[name='name']").val(),
-                        permissions: $("#roleForm select").val(),
+                        username: $("input[name='username']").val(),
+                        email: $("input[name='email']").val(),
+                        role: $("select[name='role']").val(),
+                        status: $("select[name='status']").val(),
+                        password: $("input[name='password']").val(),
+                        password_confirmation: $("input[name='password_confirmation']").val(),
                         id:$("#roleId").val()
                     }
                 }).then((response) => {
@@ -191,26 +209,24 @@
                             response.data.message,
                             'success'
                         )
-                        $('#roleModal').modal('hide');
-                        rolesTable.ajax.reload();
+                        $('#adminModal').modal('hide');
+                        adminTable.ajax.reload();
                     }
                 }, (error) => {
                     let errors = error.response.data.errors
                     $.each(errors, function( index, value ) {
                         if($(`input[name=${index}]`).length > 0){
                             bindErrorMessages(index, value, 'input')
-                        }else if( $(`select[name=${index}]`).length > 0){
+                        }else if( $(`select[name=${index}]`).length > 0 ){
                             bindErrorMessages(index, value, 'select')
                         }
                     });
                 });
             })
-            //update
-
             //Delete
             $(document).on('click','.delRow',function (){
-                let url = '/dashboard/roles/'+$(this).data('id')
-                swalDel(url, rolesTable);
+                let url = '/dashboard/admins/'+$(this).data('id')
+                swalDel(url, adminTable);
             });
         });
     </script>

@@ -23,6 +23,14 @@ return [
     'created_at' => 'Created.At',
     'new-role' => 'New Role',
     'id' => 'ID',
+    'admins' => 'Admins',
+    'new-admin' => 'New Admin',
+    'new-user' => 'New User',
+    'status' => 'Status',
+    'user' => 'User',
+    'users' => 'Users',
+
+
 
 
 ];

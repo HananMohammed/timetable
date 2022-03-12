@@ -42,7 +42,7 @@
                     success:(data)=>{
                         if(data.status){
                             swalWithBootstrapButtons.fire('Deleted!', data.message, 'success')
-                            table.ajax().reload()
+                            table.ajax.reload()
                         } else{
                             swalWithBootstrapButtons.fire('Warning!', data.message, 'warning')
                         }

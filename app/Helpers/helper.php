@@ -5,6 +5,6 @@ if(!function_exists('adminDbTablesPermissions')){
      */
     function adminDbTablesPermissions(){
 
-        return [ 'admins','users','roles'];
+        return [ 'admins','users','roles', 'pharmacies' ,'time table'];
     }
 }

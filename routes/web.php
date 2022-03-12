@@ -27,4 +27,12 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin', 'prefix'=>'dashboard'
     Route::get('/', 'HomeController@index')->name('home');
     Route::resource('roles', 'RoleController');
     Route::get('get-roles', 'RoleController@getRoles');
+    Route::resource('admins', 'AdminController');
+    Route::get('get-admins', 'AdminController@getAdmins');
+    Route::resource('users', 'UserController');
+    Route::get('get-users', 'UserController@getUsers');
+    Route::resource('pharmacies', 'PharmacyController');
+    Route::get('get-pharmacies', 'PharmacyController@Pharmacies');
+    Route::resource('time-table', 'TimeTableController');
+    Route::get('get-timeTable', 'TimeTableController@TimeTables');
 });
