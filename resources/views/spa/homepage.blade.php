@@ -3,5 +3,7 @@
 @section('title', 'users-timetable')
 
 @section('content')
-    <div id="app"></div>
+    <div id="app">
+        <router-view/>
+    </div>
 @endsection

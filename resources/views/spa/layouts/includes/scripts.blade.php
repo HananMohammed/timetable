@@ -10,3 +10,4 @@
 <!--*jq UI sortable for table drag*-->
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
 <script src="{{asset('admin/assets/js/pages/features/miscellaneous/sweetalert2.js')}}"></script>
+<script src="{{ asset('js/app.js') }}"></script>

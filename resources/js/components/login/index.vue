@@ -1,159 +1,161 @@
 <template>
-  <div class="diynamic_container">
-    <div class="loginPage">
-      <div class="img_containr">
-        <img src="/front/images/login.png" alt="">
-      </div>
-      <div class="login_part">
-        <div class="login_card">
-          <form action="javascript:void(0)">
-            <div v-if="submitted && fail" class="heightError">
-              <small  class="form-text text-danger">{{fail}}</small>
-            </div>
-            <label for="email">{{ $t('login.email') }}</label>
-            <div class="input_row_login">
-
-              <input type="email"
-                     :placeholder="$t('login.enter_email')"
-                     v-model="auth.email"
-                     id="email"
-                     @blur="validate('email')"
-                     @keypress="validate('email')"
-              >
-              <!--                            <div v-if="submitted && errors.hasOwnProperty('email')" class="heightError">-->
-              <!--                                <small  class="form-text text-danger">{{errors.email[0] }}</small>-->
-              <!--                            </div>-->
-              <div v-if="!!errors.email" class="heightError">
-                <small class="form-text text-danger">{{(typeof errors.email == 'object' ? errors.email[0] : errors.email) }}</small>
-              </div>
-
-
-            </div>
-            <label for="password">{{ $t('login.password') }}</label>
-            <div class="input_row_login">
-              <div class="password_input">
-                <input
-                    id="password"
-                    :type="[showPassword ? 'text' : 'password']"
-                    class="form-control"
-                    name="password"
-                    :placeholder="$t('login.enter_password')"
-                    v-model="auth.password"
-                    @blur="validate('password')"
-                    @keypress="validate('password')"
-                >
-                <span toggle="#password" :class="[showPassword ? 'fas fa-eye-slash' : 'fas fa-eye' ]" @click="showPassword = !showPassword"></span>
-              </div>
-              <!--                            <div v-if="submitted && errors.hasOwnProperty('password')" class="heightError">-->
-              <!--                                <small class="form-text text-danger">{{errors.password[0] }}</small>-->
-              <!--                            </div>-->
-
-              <div v-if="!!errors.password" class="heightError">
-                <small class="form-text text-danger">{{errors.password }}</small>
-              </div>
-            </div>
-
-
-            <button type="submit" class="login_btn" value="Login" @click.prevent="login" >{{ $t('login.logins') }}</button>
-            <router-link to="/forget-password" class="forget_password">{{ $t('login.forget_password') }}</router-link>
-            <p class="continue_with">{{ $t('login.Continue_With') }}</p>
-            <div class="socail_links">
-              <a href="javascript:void(0)" class="face_icon"><img src="/front/images/facebook.png" alt=""></a>
-              <a href="javascript:void(0)" class="gmail_icon"><img src="/front/images/gmail.png" alt=""></a>
-              <a href="javascript:void(0)" class="insta_icon"><img src="/front/images/instagram.png" alt=""></a>
-            </div>
-            <div class="have_account">
-              <span>{{ $t("login.not_have_account") }}</span>
-              <router-link to="/register" class="register_btn">{{$t('login.register')}}</router-link>
-            </div>
-          </form>
+  <div class="d-flex flex-column flex-root">
+    <!--begin::Login-->
+    <div class="login login-3 wizard d-flex flex-column flex-lg-row flex-column-fluid">
+      <!--begin::Aside-->
+      <div class="login-aside d-flex flex-column flex-row-auto">
+        <!--begin::Aside Top-->
+        <div class="d-flex flex-column-auto flex-column pt-lg-40 pt-15">
+          <!--begin::Aside header-->
+          <a href="#" class="login-logo text-center pt-lg-25 pb-10">
+            <img src="assets/media/logos/logo-1.png" class="max-h-70px" alt="" />
+          </a>
+          <!--end::Aside header-->
+          <!--begin::Aside Title-->
+          <h3 class="font-weight-bolder text-center font-size-h4 text-dark-50 line-height-xl">User Experience &amp; Interface Design
+            <br />Strategy SaaS Solutions</h3>
+          <!--end::Aside Title-->
         </div>
+        <!--end::Aside Top-->
+        <!--begin::Aside Bottom-->
+        <div class="aside-img d-flex flex-row-fluid bgi-no-repeat bgi-position-x-center" style="background-position-y: calc(100% + 5rem); background-image: url(assets/media/svg/illustrations/login-visual-5.svg)"></div>
+        <!--end::Aside Bottom-->
       </div>
+      <!--begin::Aside-->
+      <!--begin::Content-->
+      <div class="login-content flex-row-fluid d-flex flex-column p-10">
+        <!--begin::Top-->
+        <div class="text-right d-flex justify-content-center">
+          <div class="top-signin text-right d-flex justify-content-end pt-5 pb-lg-0 pb-10">
+            <span class="font-weight-bold text-muted font-size-h4">Having issues?</span>
+            <a href="javascript:;" class="font-weight-bold text-primary font-size-h4 ml-2" id="kt_login_signup">Get Help</a>
+          </div>
+        </div>
+        <!--end::Top-->
+        <!--begin::Wrapper-->
+        <div class="d-flex flex-row-fluid flex-center">
+          <!--begin::Signin-->
+          <div class="login-form">
+            <!--begin::Form-->
+            <form class="form" id="kt_login_singin_form" action="">
+              <!--begin::Title-->
+              <div class="pb-5 pb-lg-15">
+                <h3 class="font-weight-bolder text-dark font-size-h2 font-size-h1-lg">Sign In</h3>
+                <div class="text-muted font-weight-bold font-size-h4">New Here?
+                  <a href="custom/pages/login/login-3/signup.html" class="text-primary font-weight-bolder">Create Account</a></div>
+              </div>
+              <!--begin::Title-->
+              <!--begin::Form group-->
+              <div class="form-group">
+                <label class="font-size-h6 font-weight-bolder text-dark">Your Email</label>
+                <input class="form-control h-auto py-7 px-6 rounded-lg border-0" type="text" name="username" autocomplete="off" />
+              </div>
+              <!--end::Form group-->
+              <!--begin::Form group-->
+              <div class="form-group">
+                <div class="d-flex justify-content-between mt-n5">
+                  <label class="font-size-h6 font-weight-bolder text-dark pt-5">Your Name</label>
+                  <a href="custom/pages/login/login-3/forgot.html" class="text-primary font-size-h6 font-weight-bolder text-hover-primary pt-5">Forgot Password ?</a>
+                </div>
+                <input class="form-control h-auto py-7 px-6 rounded-lg border-0" type="password" name="password" autocomplete="off" />
+              </div>
+              <!--end::Form group-->
+              <!--begin::Action-->
+              <div class="pb-lg-0 pb-5">
+                <button type="submit" id="kt_login_singin_form_submit_button" class="btn btn-primary font-weight-bolder font-size-h6 px-8 py-4 my-3 mr-3">Sign In</button>
+                <button type="button" class="btn btn-light-primary font-weight-bolder px-8 py-4 my-3 font-size-lg">
+									<span class="svg-icon svg-icon-md">
+										<!--begin::Svg Icon | path:assets/media/svg/social-icons/google.svg-->
+										<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+											<path d="M19.9895 10.1871C19.9895 9.36767 19.9214 8.76973 19.7742 8.14966H10.1992V11.848H15.8195C15.7062 12.7671 15.0943 14.1512 13.7346 15.0813L13.7155 15.2051L16.7429 17.4969L16.9527 17.5174C18.879 15.7789 19.9895 13.221 19.9895 10.1871Z" fill="#4285F4" />
+											<path d="M10.1993 19.9313C12.9527 19.9313 15.2643 19.0454 16.9527 17.5174L13.7346 15.0813C12.8734 15.6682 11.7176 16.0779 10.1993 16.0779C7.50243 16.0779 5.21352 14.3395 4.39759 11.9366L4.27799 11.9466L1.13003 14.3273L1.08887 14.4391C2.76588 17.6945 6.21061 19.9313 10.1993 19.9313Z" fill="#34A853" />
+											<path d="M4.39748 11.9366C4.18219 11.3166 4.05759 10.6521 4.05759 9.96565C4.05759 9.27909 4.18219 8.61473 4.38615 7.99466L4.38045 7.8626L1.19304 5.44366L1.08875 5.49214C0.397576 6.84305 0.000976562 8.36008 0.000976562 9.96565C0.000976562 11.5712 0.397576 13.0882 1.08875 14.4391L4.39748 11.9366Z" fill="#FBBC05" />
+											<path d="M10.1993 3.85336C12.1142 3.85336 13.406 4.66168 14.1425 5.33717L17.0207 2.59107C15.253 0.985496 12.9527 0 10.1993 0C6.2106 0 2.76588 2.23672 1.08887 5.49214L4.38626 7.99466C5.21352 5.59183 7.50242 3.85336 10.1993 3.85336Z" fill="#EB4335" />
+										</svg>
+                    <!--end::Svg Icon-->
+									</span>Sign in with Google</button>
+              </div>
+              <!--end::Action-->
+            </form>
+            <!--end::Form-->
+          </div>
+          <!--end::Signin-->
+        </div>
+        <!--end::Wrapper-->
+      </div>
+      <!--end::Content-->
     </div>
-
+    <!--end::Login-->
   </div>
 </template>
 
 <script>
-import {mapActions, mapGetters} from 'vuex'
+
 import axios from "axios";
-import * as yup from 'yup';
-
-const loginFormSchema = yup.object().shape({
-  email: yup.string().required().email(),
-  password: yup.string().required().min(8).max(12),
-});
-
 export default {
-  name:"login",
-  data(){
-    return {
-      errors: {
-        email: "",
-        password: "",
-      },
-      auth:{
-        email:"",
-        password:""
-      },
-      showPassword:false,
-      submitted:false,
-      validated:false
-    }
-  },
-  computed:{
-    ...mapGetters({
-      fail:'auth/error'
-    })
-  },
-  methods:{
-    ...mapActions({
-      signIn:'auth/login',
-    }),
-    login(){
-      loginFormSchema
-          .validate(this.auth, { abortEarly: false })
-          .then(() => {
-            this.errors = {};
-            this.userLogin()
-          })
-          .catch(err => {
-            err.inner.forEach(error => {
-              this.errors = { ...this.errors, [error.path]: error.message };
-            });
-          });
-
-    },
-    validate(field) {
-      loginFormSchema
-          .validateAt(field, this.auth)
-          .then(() => {
-            this.errors[field] = "";
-          })
-          .catch(err => {
-            this.errors[field] = err.message;
-          });
-    },
-    userLogin(){
-      this.submitted = true
-      axios.get('/sanctum/csrf-cookie')
-      axios.post('/login',this.auth).then((response)=>{
-        axios.defaults.headers.common["Authorization"] = "Bearer " + response.data.token;
-        this.signIn()
-      }).catch((errors)=>{
-        this.errors = errors.response.data.errors
-      })
-    }
-
-  },
+  name:"Login",
+  // data(){
+  //   return {
+  //     errors: {
+  //       email: "",
+  //       password: "",
+  //     },
+  //     auth:{
+  //       email:"",
+  //       password:""
+  //     },
+  //     showPassword:false,
+  //     submitted:false,
+  //     validated:false
+  //   }
+  // },
+  // computed:{
+  //   ...mapGetters({
+  //     fail:'auth/error'
+  //   })
+  // },
+  // methods:{
+  //   ...mapActions({
+  //     signIn:'auth/login',
+  //   }),
+  //   login(){
+  //     loginFormSchema
+  //         .validate(this.auth, { abortEarly: false })
+  //         .then(() => {
+  //           this.errors = {};
+  //           this.userLogin()
+  //         })
+  //         .catch(err => {
+  //           err.inner.forEach(error => {
+  //             this.errors = { ...this.errors, [error.path]: error.message };
+  //           });
+  //         });
+  //
+  //   },
+  //   validate(field) {
+  //     loginFormSchema
+  //         .validateAt(field, this.auth)
+  //         .then(() => {
+  //           this.errors[field] = "";
+  //         })
+  //         .catch(err => {
+  //           this.errors[field] = err.message;
+  //         });
+  //   },
+  //   userLogin(){
+  //     this.submitted = true
+  //     axios.get('/sanctum/csrf-cookie')
+  //     axios.post('/login',this.auth).then((response)=>{
+  //       axios.defaults.headers.common["Authorization"] = "Bearer " + response.data.token;
+  //       this.signIn()
+  //     }).catch((errors)=>{
+  //       this.errors = errors.response.data.errors
+  //     })
+  //   }
+  //
+  // },
 }
 </script>
 <style scoped>
-.heightError{
-  color: red;
-  margin-bottom: 10px;
-}
-#email, .password_input{
-  margin-bottom: 15px;
-}
+
 </style>
