@@ -33,7 +33,9 @@ return [
     'pharmacy' => 'Pharmacy',
     'new-pharmacy' => 'New Pharmacy',
     'website' => 'website',
-    'phone' => 'phone'
+    'phone' => 'phone',
+    'timetables' => 'Timetables',
+    'new-timetable' => 'New Timetable'
 
 
 

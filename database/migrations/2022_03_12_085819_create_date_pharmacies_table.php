@@ -21,6 +21,8 @@ return new class extends Migration
             $table->foreign('pharmacy_id')->references('id')->on('pharmacies')->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->time('time_from');
             $table->time('time_to');
+            $table->string('from_slot', 10);
+            $table->string('to_slot', 10);
             $table->timestamps();
             $table->softDeletes();
         });

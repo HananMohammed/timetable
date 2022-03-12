@@ -35,8 +35,8 @@ class PharmacyController extends Controller
      */
     public function getPharmacies()
     {
-        $users = PharmacyResource::collection(Pharmacy::all());
-        return datatables($users)->make(true);
+        $pharmacies = PharmacyResource::collection(Pharmacy::all());
+        return datatables($pharmacies)->make(true);
     }
 
     /**

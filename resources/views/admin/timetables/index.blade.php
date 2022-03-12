@@ -1,6 +1,6 @@
 @extends('admin.layouts.app')
 
-@section('title', 'Users')
+@section('title', 'timetables')
 
 @section('content')
     <!--begin::Subheader-->
@@ -11,7 +11,7 @@
                 <!--begin::Page Heading-->
                 <div class="d-flex align-items-baseline flex-wrap mr-5">
                     <!--begin::Page Title-->
-                    <h5 class="text-dark font-weight-bold my-1 mr-5">@lang('admin.users')</h5>
+                    <h5 class="text-dark font-weight-bold my-1 mr-5">@lang('admin.timetables')</h5>
                     <!--end::Page Title-->
                     <!--begin::Breadcrumb-->
                     <ul class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 font-size-sm">
@@ -19,7 +19,7 @@
                             <a href="{{route('dashboard.home')}}" class="text-muted">@lang('admin.dashboard')</a>
                         </li>
                         <li class="breadcrumb-item">
-                            <a href="{{route('dashboard.admins.index')}}" class="text-muted">@lang('admin.users')</a>
+                            <a href="{{route('dashboard.timetables.index')}}" class="text-muted">@lang('admin.timetables')</a>
                         </li>
                     </ul>
                     <!--end::Breadcrumb-->
@@ -38,11 +38,11 @@
             <div class="card card-custom gutter-b" style="width: 100%;">
                 <div class="card-header flex-wrap py-3">
                     <div class="card-title">
-                        <h3 class="card-label">@lang('admin.users')</h3>
+                        <h3 class="card-label">@lang('admin.timetables')</h3>
                     </div>
                     <div class="card-toolbar">
                         <!--begin::Button-->
-                        <a href="javascript:void(0)" class="btn btn-primary font-weight-bolder d-flex " id="add_user"  data-toggle="modal" data-target="#userModal" >
+                        <a href="javascript:void(0)" class="btn btn-primary font-weight-bolder d-flex " id="add_timetable"  data-toggle="modal" data-target="#timetableModal" >
                     <span class="svg-icon svg-icon-md">
                         <!--begin::Svg Icon | path:assets/media/svg/icons/Design/Flatten.svg-->
                         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
@@ -53,23 +53,22 @@
                             </g>
                         </svg>
                         <!--end::Svg Icon-->
-                    </span>@lang('admin.new-user')</a>
+                    </span>@lang('admin.new-timetable')</a>
                         <!--end::Button-->
                     </div>
                 </div>
                 <div class="card-body">
-                @include('admin.users.create_edit_form')
+                @include('admin.timetables.create_edit_form')
                 <!--begin: Datatable-->
                     <div id="kt_datatable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
                         <div class="row">
                             <div class="col-sm-12">
-                                <table class="table table-bordered table-checkable " id="users_datatable">
+                                <table class="table table-bordered table-checkable " id="pharmacy_datatable">
                                     <thead>
                                     <tr role="row">
                                         <th>@lang('admin.id')</th>
-                                        <th>@lang('admin.name')</th>
-                                        <th>Email</th>
-                                        <th>@lang('admin.status')</th>
+                                        <th>User</th>
+                                        <th>Date</th>
                                         <th>@lang('admin.created_at')</th>
                                         <th>@lang('admin.actions')</th>
                                     </tr>
@@ -94,10 +93,9 @@
     <script src="{{ asset('admin/assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>
     <script type="text/javascript">
         $( document ).ready(function() {
-            var table =  $('#users_datatable')
+            var table =  $('#pharmacy_datatable')
 
-            let usersTable =  table.DataTable({
-
+            let timetableTable =  table.DataTable({
                 lengthChange: true,
                 processing: true,
                 serverSide: true,
@@ -108,14 +106,13 @@
                 ],
                 paging: true,
                 ajax: {
-                    url :'/dashboard/get-users',
+                    url :'/dashboard/get-timetables',
                     headers:{'auth-id': $('meta[name="auth-id"]').attr('content')},
                     data: function (d) {}
                 },
                 columns: [
                     {
                         "data": "id",
-                        width: '50px',
                         render: function(data, type, full, meta) {
                             return `
                                       <label class="checkbox checkbox-single">
@@ -124,15 +121,8 @@
                                       </label>`;
                         },
                     },
-                    {data: 'name'},
-                    {data: 'email'},
-                    {
-                        data: 'status',
-                        render: function (data) {
-                            return (data == 1) ? `<span class="badge badge-success">Active</span>` : `<span class="badge badge-danger">InActive</span>`;
-                        }
-
-                    },
+                    {data: 'user'},
+                    {data: 'date'},
                     {data: 'created_at'},
                     {
                         data:'id',
@@ -140,15 +130,9 @@
                         width: '125px',
                         render: function(data) {
                             return `
-                                      <a href= "javascript:void(0)" data-id="${data}" class="btn btn-sm btn-clean btn-icon mr-2 editRow" title="Edit details" >
-                                      <span class="svg-icon svg-icon-md">
-                                      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
-                                          <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                              <rect x="0" y="0" width="24" height="24"></rect>
-                                              <path d="M8,17.9148182 L8,5.96685884 C8,5.56391781 8.16211443,5.17792052 8.44982609,4.89581508 L10.965708,2.42895648 C11.5426798,1.86322723 12.4640974,1.85620921 13.0496196,2.41308426 L15.5337377,4.77566479 C15.8314604,5.0588212 16,5.45170806 16,5.86258077 L16,17.9148182 C16,18.7432453 15.3284271,19.4148182 14.5,19.4148182 L9.5,19.4148182 C8.67157288,19.4148182 8,18.7432453 8,17.9148182 Z" fill="#000000" fill-rule="nonzero" transform="translate(12.000000, 10.707409) rotate(-135.000000) translate(-12.000000, -10.707409) "></path>
-                                              <rect fill="#000000" opacity="0.3" x="5" y="20" width="15" height="2" rx="1"></rect>
-                                          </g>
-                                      </svg>
+                              <a href= "javascript:void(0)" data-id="${data}" class="btn btn-sm btn-clean btn-icon mr-2 editRow" title="Assign Pharmacy" >
+                                  <span class="svg-icon svg-icon-md">
+                                      <i class="ki ki-solid-plus"></i>
                                   </span>
                               </a>
 
@@ -177,21 +161,14 @@
             //Create
             $("#save").on('click', function (event) {
                 event.preventDefault()
-                let url = ($("#userId").val()) ? `/dashboard/users/${$("#userId").val()}`: currentLocation;
-                let method = ($("#userId").val()) ? 'PUT' : 'POST'
-                $("#userForm input, #userForm select").map((index, value)=>{
-                    $(value).removeClass('is-invalid')
-                })
+                $("#timetableForm input, #timetableForm select").map((index, value)=> $(value).removeClass('is-invalid') )
                 axios({
-                    method: method,
-                    url: url,
+                    method: 'POST',
+                    url: currentLocation,
                     data: {
-                        name: $("input[name='name']").val(),
-                        email: $("input[name='email']").val(),
-                        status: $("select[name='status']").val(),
-                        password: $("input[name='password']").val(),
-                        password_confirmation: $("input[name='password_confirmation']").val(),
-                        id:$("#userId").val()
+                        user_id: $("select[name='user_id']").val(),
+                        start_date: $("#start_date").val(),
+                        end_date: $("#end_date").val(),
                     }
                 }).then((response) => {
                     if(response.status){
@@ -200,13 +177,17 @@
                             response.data.message,
                             'success'
                         )
-                        $('#userModal').modal('hide');
-                        usersTable.ajax.reload();
+                        $('#timetableModal').modal('hide');
+                        timetableTable.ajax.reload();
                     }
                 }, (error) => {
                     let errors = error.response.data.errors
                     $.each(errors, function( index, value ) {
                         if($(`input[name=${index}]`).length > 0){
+                            if(index == 'start_date'){
+                                $("#kt_daterangepicker_1").addClass('is-invalid')
+                                $(`.${index}`).text(value)
+                            }
                             bindErrorMessages(index, value, 'input')
                         }else if( $(`select[name=${index}]`).length > 0 ){
                             bindErrorMessages(index, value, 'select')
@@ -216,9 +197,48 @@
             })
             //Delete
             $(document).on('click','.delRow',function (){
-                let url = '/dashboard/users/'+$(this).data('id')
-                swalDel(url, usersTable);
+                let url = '/dashboard/timetables/'+$(this).data('id')
+                swalDel(url, timetableTable);
             });
+
+            //Assign
+            $("#assign_save").on('click', function (event) {
+                event.preventDefault()
+                $("#AssignForm input, #AssignForm select").map((index, value)=> $(value).removeClass('is-invalid') )
+                axios({
+                    method: 'POST',
+                    url: '/dashboard/assign-pharmacies',
+                    data: {
+                        pharmacy_id: $("select[name='pharmacy_id']").val(),
+                        time_from: $("input[name='time_from']").val(),
+                        time_to: $("input[name='time_to']").val(),
+                        date_id: $("input[name='date_id']").val(),
+                    }
+                }).then((response) => {
+                    if(response.status){
+                        Swal.fire(
+                            'Good job!',
+                            response.data.message,
+                            'success'
+                        )
+                        $('#assignModal').modal('hide');
+                        timetableTable.ajax.reload();
+                    }
+                }, (error) => {
+                    let errors = error.response.data.errors
+                    $.each(errors, function( index, value ) {
+                        if($(`input[name=${index}]`).length > 0){
+                            if(index == 'start_date'){
+                                $("#kt_daterangepicker_1").addClass('is-invalid')
+                                $(`.${index}`).text(value)
+                            }
+                            bindErrorMessages(index, value, 'input')
+                        }else if( $(`select[name=${index}]`).length > 0 ){
+                            bindErrorMessages(index, value, 'select')
+                        }
+                    });
+                });
+            })
         });
     </script>
 @endpush

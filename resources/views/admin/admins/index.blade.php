@@ -68,6 +68,8 @@
                                         <tr role="row">
                                             <th>@lang('admin.id')</th>
                                             <th>@lang('admin.name')</th>
+                                            <th>Username</th>
+                                            <th>Email</th>
                                             <th>@lang('admin.role')</th>
                                             <th>@lang('admin.status')</th>
                                             <th>@lang('admin.created_at')</th>
@@ -127,6 +129,8 @@
                         },
                     },
                     {data: 'name'},
+                    {data: 'username'},
+                    {data: 'email'},
                     {data: 'role'},
                     {
                         data: 'status',

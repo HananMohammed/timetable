@@ -33,6 +33,7 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin', 'prefix'=>'dashboard'
     Route::get('get-users', 'UserController@getUsers');
     Route::resource('pharmacies', 'PharmacyController');
     Route::get('get-pharmacies', 'PharmacyController@getPharmacies');
-    Route::resource('time-table', 'TimeTableController');
-    Route::get('get-timeTable', 'TimeTableController@TimeTables');
+    Route::resource('timetables', 'TimeTableController');
+    Route::get('get-timetables', 'TimeTableController@timeTable');
+    Route::post('assign-pharmacies', 'TimeTableController@assignPharmaciesToDate');
 });

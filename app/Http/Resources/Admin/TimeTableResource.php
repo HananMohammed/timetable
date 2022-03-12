@@ -5,7 +5,7 @@ namespace App\Http\Resources\Admin;
 use Illuminate\Http\Resources\Json\JsonResource;
 use \Illuminate\Http\Request;
 
-class UserResource extends JsonResource
+class TimeTableResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -17,9 +17,8 @@ class UserResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'name' => $this->name,
-            'email' => $this->email,
-            'status' => $this->status,
+            'user' => $this->user->name,
+            'date' => $this->date,
             'created_at' => $this->created_at
         ];
     }

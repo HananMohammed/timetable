@@ -21,6 +21,8 @@ class AdminResource extends JsonResource
                 'role' => $this->getRoleNames(),
             ],
             'name' => $this->name,
+            'username' => $this->username,
+            'email' => $this->email,
             'role' => $this->getRoleNames(),
             'status' => $this->status,
             'created_at' => $this->created_at
