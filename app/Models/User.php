@@ -70,4 +70,8 @@ class User extends Authenticatable
             get: fn ($value) => Carbon::parse($value)->format('Y-m-d'),
         );
     }
+
+    public function dates(){
+        return  $this->hasMany(Date::class, 'user_id');
+    }
 }

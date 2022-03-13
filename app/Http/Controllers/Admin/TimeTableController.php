@@ -64,8 +64,14 @@ class TimeTableController extends Controller
 
         foreach ($request->pharmacy_id as $pharmacy_id){
             DatePharmacies::updateOrCreate(
-                [ 'time_from' => $from[0], 'time_to' => $to[0], 'from_slot' => $from[1], 'to_slot' => $to[1] ],
-                [ 'date_id'=> $request->date_id, 'pharmacy_id' => $pharmacy_id ]
+                [
+                    'time_from' => $from[0],
+                    'time_to' => $to[0],
+                    'from_slot' => $from[1],
+                    'to_slot' => $to[1],
+                    'date_id'=> $request->date_id,
+                    'pharmacy_id' => $pharmacy_id
+                ],
             );
         }
         return response()->json(['status'=> true, 'message'=> 'Day Pharmacies Assigned Successfully']);

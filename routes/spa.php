@@ -18,5 +18,5 @@ use Illuminate\Support\Facades\Route;
 Route::get('/','HomepageController@index');
 
 Route::get('/{any}', function () {
-    return view('front.homepage');
+    return view('spa.homepage');
 })->where('any', '.*');

@@ -19,6 +19,8 @@ class RouteServiceProvider extends ServiceProvider
      */
     public const HOME = '/dashboard';
     protected $spaNamespace = 'App\Http\Controllers\SPA';
+    protected $apiNamespace = 'App\Http\Controllers\API';
+
 
     /**
      * Define your route model bindings, pattern filters, etc.
@@ -32,7 +34,11 @@ class RouteServiceProvider extends ServiceProvider
         $this->routes(function () {
             Route::prefix('api')
                 ->middleware('api')
+                ->namespace($this->apiNamespace)
+                ->prefix('api/v1')
+                ->as('api.v1.')
                 ->group(base_path('routes/api.php'));
+
 
             Route::middleware('web')
                 ->group(base_path('routes/web.php'));

@@ -14,6 +14,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::post('/login', 'AuthenticationController@login');
+
+Route::group(['middleware'=>['auth:sanctum'/*,'user.check'*/]],function () {
+    Route::get('/user', 'UserController@getUser');
+    Route::post('/logout', 'AuthenticationController@signout');
+    Route::get('/user-timetable/{id}', 'UserTimetableController@timTable');
+    Route::get('pharmacies', 'UserTimetableController@pharmacies');
 });
